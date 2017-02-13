@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jchat.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/jchat.css">
+</head>
+<body>
+<div class="jchat-container" id="container">
+    <div class="jchat-channel">
+
+    </div>
+    <div class="jchat-toolbar">
+        <span class='icon jchat-send icon-send' aria-pressed="false"></span>
+        <span class="icon jchat-bold icon-bold" aria-pressed="false"></span>
+        <span class="icon jchat-italic icon-italic" aria-pressed="false"></span>
+        <span class="icon jchat-underline icon-underline" aria-pressed="false"></span>
+        <span><span class="icon jchat-text-color icon-text-color" aria-pressed="false"></span></span>
+        <span><span class="icon jchat-bgcolor icon-bgcolor" aria-pressed="false"></span></span>
+        <input title='Font Size' class='jchat-font-size' type="number" value="14">
+    </div>
+    <textarea class='jchat-textbox' title="Channel"></textarea>
+</div>
+
+<script>
+    var container = document.getElementById('container');
+    var chat = new jChat({
+        appendTo: container,
+        ajaxConfig: {
+            action: 'get.php',
+            data: {test: 'test'}
+        }
+    });
+    chat.options.ajaxConfig.evt = function(response){
+        alert(response);
+        chat.appendMessage(chat.textbox.value);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+.jchat-container, .jchat-container * {
+    box-sizing: border-box;
+}
+
+.jchat-container{
+    border: 1px solid #000;
+    width: 400px;
+    height: 300px;
+}
+.jchat-channel{
+    height: calc(75% - 30px);
+    width:100%;
+    overflow-y: auto;
+}
+.jchat-toolbar{
+    height: 30px;
+    border-top: 1px solid #000;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    vertical-align:middle;
+    background-color: rgb(240, 240, 240);
+}
+.jchat-textbox{
+    width:100%;
+    height: 25%;
+    margin: 0;
+    resize: none;
+    border: 0;
+    border-top: 1px solid #000;
+    font-size: 14px;
+}
+.jchat-toolbar input{
+    background-color: rgb(240, 240, 240);
+    width: 45px;
+    height: 90%;
+    font-size: 15px;
+}
+.icon{
+    padding: 2px;
+    margin: 0;
+    font-size:15px;
+    height: 100%;
+    width: 29px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+.icon:hover{
+    background-color: #cccccc;
+}
+.jchat-active{
+    background-color: #dbdbdb;
+}
+.jchat-palette{
+    width: 100px;
+    border: 1px solid grey;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+.jchat-palette{
+    position: absolute;
+    background: white;
+}
+.jchat-palette span.jchat-color{
+    width: 16px;
+    height: 16px;
+    border: 1px solid LightGrey;
+    margin: 1px;
+}
