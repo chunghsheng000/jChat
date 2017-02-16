@@ -6,8 +6,10 @@
         this.toolbar = null;
         this.textbox = null;
         //The div of message template in the channel
-        this.messageTempate = document.createElement('div');
-        this.messageTempate.className = "jchat-message";
+        this.messageTempate = {
+            withName: '<div class="jchat-message"><span class="jchat-message-name">%s</span>: <span class="jchat-message-content">%s</span></div>',
+            withoutName: '<div class="jchat-message"><span class="jchat-message-content">%s</span></div>'
+        };
         this.tools = {};
 
         var defaults = {
@@ -188,6 +190,13 @@
                 (typeof obj.ownerDocument ==="object");
         }
     }
+    function escapeHtml(text) {
+        return text
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
 
     //Create palette html element
     jChat.prototype.createPalette = function(element, evt){
@@ -209,15 +218,36 @@
         return palette;
     };
 
-    //Send the message to the channel
-    jChat.prototype.appendMessage = function(text, name){
-        var clone = this.messageTempate.cloneNode(true);
+    //Generate Template HTML code
+    function messageTemplateGenerate(jchat, text, name) {
         text = text.replace(/ /g,"&nbsp;");
         text = text.replace(/[\r\n]/g, "<br />");
-        clone.innerHTML = (name === undefined? this.options.defaultName: name) + (text === undefined? this.textbox.value: text);
-        clone.style.cssText = this.textbox.style.cssText;
+        var html, div;
+        if (name == null) {
+            html = jchat.messageTempate.withoutName.replace('%s', escapeHtml(text));
+            div = document.createElement('div');
+            div.innerHTML = html;
+            return div.firstChild;
+        }
+        else {
+            html = jchat.messageTempate.withName.replace('%s', escapeHtml(name)).replace('%s', escapeHtml(text));
+            div = document.createElement('div');
+            div.innerHTML = html;
+            return div.firstChild;
+        }
+    }
+
+    //Send the message to the channel
+    jChat.prototype.appendMessage = function(text, name){
+        // If the channel is scrolled to the bottom, then once the new message append, it need to be kept on the bottom
+        var scroll = this.channel.scrollTop ===( this.channel.scrollHeight - this.channel.offsetHeight);
+        var clone = messageTemplateGenerate(this, text, name);
         this.channel.appendChild(clone);
+        clone.style.cssText = this.textbox.style.cssText;
         this.textbox.value = "";
+        if (scroll) {
+            this.channel.scrollTop = this.channel.scrollHeight - this.channel.offsetHeight;
+        }
     };
 
     jChat.prototype.getChatStyle = function(){
