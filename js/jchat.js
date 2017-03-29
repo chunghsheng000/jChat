@@ -130,7 +130,7 @@
 
         //Font size selection functionality
         this.tools.fontSize = this.toolbar.getElementsByClassName('jchat-font-size')[0];
-        if (typeof(this.tools.fontSize) == 'undefined' || this.tools.fontSize == null) {
+        if (typeof(this.tools.fontSize) === 'undefined' || this.tools.fontSize === 'null') {
             _.tools.fontSize = document.createElement('input');
             _.tools.fontSize.type = 'number';
             _.tools.fontSize.value ='14';
@@ -223,7 +223,7 @@
         text = text.replace(/ /g,"&nbsp;");
         text = text.replace(/[\r\n]/g, "<br />");
         var html, div;
-        if (name == null) {
+        if (name === 'null') {
             html = jchat.messageTempate.withoutName.replace('%s', escapeHtml(text));
             div = document.createElement('div');
             div.innerHTML = html;
@@ -280,7 +280,7 @@
 
     function toolItemCreate(jchat, toolName, eventType, evt){
         jchat.tools[toolName] = jchat.toolbar.getElementsByClassName('icon-'+toolName)[0];
-        if (typeof(jchat.tools[toolName]) == 'undefined' || jchat.tools[toolName] == null) {
+        if (typeof(jchat.tools[toolName]) === 'undefined' || jchat.tools[toolName] === 'null') {
             jchat.tools[toolName] = document.createElement('span');
             jchat.tools[toolName].className = 'icon jchat-'+toolName+' icon-'+toolName;
             jchat.tools[toolName].setAttribute('aria-pressed', false);
