@@ -1,4 +1,4 @@
-.jchat-container, .jchat-container * {
+.jchat-container, .jchat-container{
     box-sizing: border-box;
 }
 
@@ -68,7 +68,7 @@
     position: absolute;
     background: white;
 }
-.jchat-palette span.jchat-color{
+.jchat-palette .jchat-color{
     width: 16px;
     height: 16px;
     border: 1px solid LightGrey;
